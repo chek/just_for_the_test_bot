@@ -32,18 +32,18 @@ exports.init = function() {
     })
 
     bot.hears('ok', ctx => {
-        console.log(ctx)
-        console.log(ctx.update.message.message_id)
+        //console.log(ctx)
+        //console.log(ctx.update.message.message_id)
         ctx.reply('Yay!')
-        ctx.deleteMessage(ctx.update.message.message_id, ctx.update.message.chat.id)
+        //ctx.deleteMessage(ctx.update.message.message_id, ctx.update.message.chat.id)
     })
     bot.action('plain', (ctx) => {
     })
     bot.action('italic', (ctx) => {
     })
     bot.action(/.+/, (ctx) => {
-        console.log(ctx)
-        console.log(ctx.update.callback_query.message)
+        //console.log(ctx)
+        //console.log(ctx.update.callback_query.message)
         ctx.deleteMessage(ctx.update.callback_query.message.message_id, ctx.update.callback_query.message.chat.id)
         //ctx.deleteMessage
         //console.log(ctx.message)
@@ -53,11 +53,11 @@ exports.init = function() {
     bot.startPolling()
 };
 const start = function(ctx) {
-    console.log('start')
+    //console.log('start')
     ctx.reply('Welcome!')
 }
 const sticker = function(ctx) {
-    console.log('sticker')
+    //console.log('sticker')
     //ctx.reply('👍')
     //return renderConfirm(ctx, 'Wich one of these you want check?');
     return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel']);
