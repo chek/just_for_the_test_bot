@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   //telegram.init();
   var fullUrl = req.protocol + '://' + req.get('host');
-  //telegram.startWebhook(fullUrl)
+  telegram.getWebhookInfo()
 
   
   //var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;

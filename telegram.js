@@ -1,11 +1,14 @@
-var pem = require('pem')
-let Telegraf
+const pem = require('pem')
+const Telegraf = require('telegraf')
+const Telegram = require('telegraf/telegram')
+//let Telegraf
 let bot
+let telegram
 
 exports.init = function() {
-    Telegraf = require('telegraf')
 
     bot = new Telegraf(process.env.BOT_TOKEN)
+    telegram = new Telegram(process.env.BOT_TOKEN)
     
     bot.telegram.getMe().then((bot_informations) => {
         bot.options.username = bot_informations.username;
@@ -25,17 +28,18 @@ exports.getBot = function() {
     return bot;
 };
 exports.startWebhook = function(host) {
-    //console.log(host)
     bot.telegram.setWebhook(host + '//secret-path')
-
-    /*
+};
+exports.createCertificate = function() {
     pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-        console.log(err)
-        console.log(keys)
         if (err) {
           throw err
-        }
-       
-      })    
-      */
+        }       
+    })    
 };
+exports.getWebhookInfo = function() {
+    telegram.getWebhookInfo().then(function(value) {
+        console.log(value)
+    });
+};
+
