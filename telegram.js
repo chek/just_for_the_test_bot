@@ -1,6 +1,8 @@
 const pem = require('pem')
 const Telegraf = require('telegraf')
 const Telegram = require('telegraf/telegram')
+const Extra = require('telegraf/extra')
+const Markup = require('telegraf/markup')
 const config = require('config');
 //let Telegraf
 let bot
@@ -18,34 +20,61 @@ exports.init = function() {
     });
 
     bot.start((ctx) => {
-        console.log('start')
-        ctx.reply('Welcome!')
+        start(ctx);
     })
     bot.help((ctx) => ctx.reply('Send me a sticker'))
-    bot.on('sticker', (ctx) => ctx.reply('👍'))
+    bot.on('sticker', (ctx) => {
+        sticker(ctx)
+    })
     bot.hears('hi', (ctx) => ctx.reply('Hey there'))
-    bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy'))
+    bot.hears(/buy/i, (ctx) => {
+        ctx.reply('Buy-buy')
+    })
+
+    bot.hears('ok', ctx => {
+        console.log(ctx)
+        console.log(ctx.update.message.message_id)
+        ctx.reply('Yay!')
+        ctx.deleteMessage(ctx.update.message.message_id, ctx.update.message.chat.id)
+    })
+    bot.action('plain', (ctx) => {
+    })
+    bot.action('italic', (ctx) => {
+    })
+    bot.action(/.+/, (ctx) => {
+        console.log(ctx)
+        console.log(ctx.update.callback_query.message)
+        ctx.deleteMessage(ctx.update.callback_query.message.message_id, ctx.update.callback_query.message.chat.id)
+        //ctx.deleteMessage
+        //console.log(ctx.message)
+        return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
+      })   
 
     bot.startPolling()
 };
-
-exports.getBot = function() {
-    return bot;
-};
-exports.startWebhook = function(host) {
-    console.log('startWebhook')
-    bot.telegram.setWebhook(host + '/secret-path')
-};
-exports.createCertificate = function() {
-    pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
-        if (err) {
-          throw err
-        }       
-    })    
-};
-exports.getWebhookInfo = function() {
-    telegram.getWebhookInfo().then(function(value) {
-        console.log(value)
-    });
-};
-
+const start = function(ctx) {
+    console.log('start')
+    ctx.reply('Welcome!')
+}
+const sticker = function(ctx) {
+    console.log('sticker')
+    //ctx.reply('👍')
+    //return renderConfirm(ctx, 'Wich one of these you want check?');
+    return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel']);
+    
+    
+     
+}
+const renderConfirm = function(ctx, question) {
+    return ctx.reply(question, Extra.markup(
+        Markup.inlineKeyboard([
+            Markup.callbackButton('Ok', 'ok'),
+            Markup.callbackButton('Cancel', 'cancel')
+        ])       
+    ))    
+}
+const renderKeyboard = function(ctx, question, buttons) {
+    return ctx.reply(question, Extra.markup(
+        Markup.keyboard(buttons, false, true)
+    ))    
+}

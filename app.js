@@ -39,6 +39,5 @@ app.use(function(err, req, res, next) {
 });
 
 telegram.init();
-//app.use(telegram.getBot().webhookCallback('/users'))
 
 module.exports = app;
