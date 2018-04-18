@@ -1,7 +1,11 @@
-exports.init = function() {
-    const Telegraf = require('telegraf')
+var pem = require('pem')
+let Telegraf
+let bot
 
-    const bot = new Telegraf(process.env.BOT_TOKEN)
+exports.init = function() {
+    Telegraf = require('telegraf')
+
+    bot = new Telegraf(process.env.BOT_TOKEN)
     
     bot.telegram.getMe().then((bot_informations) => {
         bot.options.username = bot_informations.username;
@@ -15,4 +19,23 @@ exports.init = function() {
     bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy'))
 
     bot.startPolling()
+};
+
+exports.getBot = function() {
+    return bot;
+};
+exports.startWebhook = function(host) {
+    //console.log(host)
+    bot.telegram.setWebhook(host + '//secret-path')
+
+    /*
+    pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {
+        console.log(err)
+        console.log(keys)
+        if (err) {
+          throw err
+        }
+       
+      })    
+      */
 };

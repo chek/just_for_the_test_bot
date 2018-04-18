@@ -3,7 +3,8 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var fullUrl = req.protocol + '://' + req.get('host');
+  console.log('users')
+  //var fullUrl = req.protocol + '://' + req.get('host');
   res.send(fullUrl);
 });
 
