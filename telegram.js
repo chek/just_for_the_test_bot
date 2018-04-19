@@ -3,10 +3,14 @@ const Telegram = require('telegraf/telegram')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 const config = require('config')
+const confirmation = require('./components/confirmation')
 
 let bot
 let telegram
 
+exports.bot = function () {
+    return bot
+}
 exports.init = function () {
     let token
     if(process.env.BOT_TOKEN) { 
@@ -53,6 +57,7 @@ exports.init = function () {
     })
     bot.action('italic', (ctx) => {
     })
+    /*
     bot.action(/.+/, (ctx) => {
         //console.log(ctx)
         //console.log(ctx.update.callback_query.message)
@@ -61,7 +66,15 @@ exports.init = function () {
         //console.log(ctx.message)
         return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
     })   
+    */
+    
+    bot.action('ok', (ctx) => {
+        //ctx.reply('Ok - ok')
+    })
+       
 
+
+    bot.command('/mod', ({ reply }) => reply('Yo'))
     bot.startPolling()
 }
 const start = function(ctx) {
@@ -71,19 +84,19 @@ const start = function(ctx) {
 const sticker = function(ctx) {
     //console.log('sticker')
     //ctx.reply('👍')
-    return renderConfirm(ctx, 'Wich one of these you want check?')
+    confirmation.show(ctx, 'afsdfsdfds?',
+        (val) => {
+            console.log("fulfilled: 22222")
+        },
+        (err) => {
+            console.log("rejected:", err)
+        }
+    )
+
     //return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel'])
     
     
      
-}
-const renderConfirm = function(ctx, question) {
-    return ctx.reply(question, Extra.markup(
-        Markup.inlineKeyboard([
-            Markup.callbackButton('Ok', 'ok'),
-            Markup.callbackButton('Cancel', 'cancel')
-        ])       
-    ))    
 }
 const renderKeyboard = function(ctx, question, buttons) {
     return ctx.reply(question, Extra.markup(
