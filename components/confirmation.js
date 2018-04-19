@@ -26,17 +26,6 @@ exports.show = (ctx, question, callBack, errCallBack) => {
         runCallback(errCallBack, false)
         //showCallbackMessage(ctx, `Oh, ${ctx.match[0]}! Great choice`)
     })  
-    let timeout = 1
-    if (process.env.NODE_ENV) {
-        timeout = 10000 
-    }
-    setTimeout(
-        function() {
-            close(ctx)
-            runCallback(errCallBack, false)
-        },
-        timeout
-    )
     if (typeof ctx !== 'undefined') {
         ctx.reply(question, Extra.markup(
             Markup.inlineKeyboard([
@@ -46,4 +35,3 @@ exports.show = (ctx, question, callBack, errCallBack) => {
         ))        
     }
 }
-
