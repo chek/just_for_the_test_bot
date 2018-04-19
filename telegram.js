@@ -1,32 +1,31 @@
-//const pem = require('pem')
 const Telegraf = require('telegraf')
 const Telegram = require('telegraf/telegram')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
-//process.env.NODE_CONFIG_DIR = './config'
-const config = require('config');
+const config = require('config')
+
 let bot
 let telegram
 
-exports.init = function() {
-    let token;
+exports.init = function () {
+    let token
     if(process.env.BOT_TOKEN) { 
-        token = process.env.BOT_TOKEN;; 
+        token = process.env.BOT_TOKEN
     }
     else { 
-        token = config.get('BOT_TOKEN'); 
+        token = config.get('BOT_TOKEN')
     }
 
     bot = new Telegraf(token)
     telegram = new Telegram(token)
     
     bot.telegram.getMe().then((bot_informations) => {
-        bot.options.username = bot_informations.username;
-        console.log("Server has initialized bot nickname. Nick: "+bot_informations.username);
-    });
+        bot.options.username = bot_informations.username
+        console.log('Server has initialized bot nickname. Nick: '+bot_informations.username)
+    })
 
     bot.start((ctx) => {
-        start(ctx);
+        start(ctx)
     })
     bot.help((ctx) => ctx.reply('Send me a sticker'))
     bot.on('sticker', (ctx) => {
@@ -54,10 +53,10 @@ exports.init = function() {
         //ctx.deleteMessage
         //console.log(ctx.message)
         return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
-      })   
+    })   
 
     bot.startPolling()
-};
+}
 const start = function(ctx) {
     //console.log('start')
     ctx.reply('Welcome!')
