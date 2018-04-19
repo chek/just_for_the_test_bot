@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha  spec tests/*.js"
   },
   "dependencies": {
     "config": "^1.30.0",
@@ -12,6 +13,7 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "mocha": "^5.1.1",
     "morgan": "~1.9.0",
     "pem": "^1.12.5",
     "telegraf": "^3.20.0"

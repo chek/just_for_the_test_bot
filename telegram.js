@@ -39,7 +39,14 @@ exports.init = function () {
     bot.hears('ok', ctx => {
         //console.log(ctx)
         //console.log(ctx.update.message.message_id)
-        ctx.reply('Yay!')
+        //Markup.keyboard(buttons, false, true)
+        //ctx.reply('Yay!')
+        
+        return ctx.reply('Yay!', Extra.markup(
+            Markup.removeKeyboard()
+        ))
+        //ctx.reply(':)', Extra.markup((m) => m.removeKeyboard()))         
+        
         //ctx.deleteMessage(ctx.update.message.message_id, ctx.update.message.chat.id)
     })
     bot.action('plain', (ctx) => {
@@ -64,8 +71,8 @@ const start = function(ctx) {
 const sticker = function(ctx) {
     //console.log('sticker')
     //ctx.reply('👍')
-    //return renderConfirm(ctx, 'Wich one of these you want check?');
-    return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel']);
+    return renderConfirm(ctx, 'Wich one of these you want check?')
+    //return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel'])
     
     
      
