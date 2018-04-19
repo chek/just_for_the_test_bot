@@ -12,7 +12,15 @@ let telegram
 exports.init = function() {
     console.log(process.env.NODE_ENV)
     console.log(config.get('BOT_TOKEN'))
-    var token = config.get('BOT_TOKEN');
+    
+    let token;
+    if(process.env.BOT_TOKEN) { 
+        token = process.env.BOT_TOKEN;; 
+    }
+    else { 
+        token = config.get('BOT_TOKEN'); 
+    }
+
     bot = new Telegraf(token)
     telegram = new Telegram(token)
     
