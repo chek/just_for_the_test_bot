@@ -5,17 +5,10 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 process.env.NODE_CONFIG_DIR = './config'
 const config = require('config');
-//let Telegraf
 let bot
 let telegram
 
 exports.init = function() {
-
-    console.log('Init')
-    //console.log(process.env.NODE_ENV)
-    console.log('-------')
-    //console.log(config.get('BOT_TOKEN'))
-    
     let token;
     if(process.env.BOT_TOKEN) { 
         token = process.env.BOT_TOKEN;; 
