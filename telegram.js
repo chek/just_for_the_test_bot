@@ -12,6 +12,7 @@ exports.bot = function () {
     return bot
 }
 exports.init = function () {
+    if (typeof bot !== 'undefined') return
     let token
     if(process.env.BOT_TOKEN) { 
         token = process.env.BOT_TOKEN
@@ -19,15 +20,12 @@ exports.init = function () {
     else { 
         token = config.get('BOT_TOKEN')
     }
-
     bot = new Telegraf(token)
     telegram = new Telegram(token)
-    
     bot.telegram.getMe().then((bot_informations) => {
         bot.options.username = bot_informations.username
         console.log('Server has initialized bot nickname. Nick: '+bot_informations.username)
     })
-
     bot.start((ctx) => {
         start(ctx)
     })
@@ -39,18 +37,15 @@ exports.init = function () {
     bot.hears(/buy/i, (ctx) => {
         ctx.reply('Buy-buy')
     })
-
     bot.hears('ok', ctx => {
         //console.log(ctx)
         //console.log(ctx.update.message.message_id)
         //Markup.keyboard(buttons, false, true)
-        //ctx.reply('Yay!')
-        
+        //ctx.reply('Yay!')  
         return ctx.reply('Yay!', Extra.markup(
             Markup.removeKeyboard()
         ))
-        //ctx.reply(':)', Extra.markup((m) => m.removeKeyboard()))         
-        
+        //ctx.reply(':)', Extra.markup((m) => m.removeKeyboard()))             
         //ctx.deleteMessage(ctx.update.message.message_id, ctx.update.message.chat.id)
     })
     bot.action('plain', (ctx) => {
@@ -66,14 +61,10 @@ exports.init = function () {
         //console.log(ctx.message)
         return ctx.answerCbQuery(`Oh, ${ctx.match[0]}! Great choice`)
     })   
-    */
-    
+    */    
     bot.action('ok', (ctx) => {
         //ctx.reply('Ok - ok')
     })
-       
-
-
     bot.command('/mod', ({ reply }) => reply('Yo'))
     bot.startPolling()
 }
@@ -84,19 +75,17 @@ const start = function(ctx) {
 const sticker = function(ctx) {
     //console.log('sticker')
     //ctx.reply('👍')
-    confirmation.show(ctx, 'afsdfsdfds?',
+    confirmation.show(
+        ctx, 
+        'afsdfsdfds?',
         (val) => {
-            console.log("fulfilled: 22222")
+            console.log('111')
         },
         (err) => {
-            console.log("rejected:", err)
+            console.log('222')
         }
     )
-
     //return renderKeyboard(ctx, 'Wich one of these you want check?', ['ok', 'cancel'])
-    
-    
-     
 }
 const renderKeyboard = function(ctx, question, buttons) {
     return ctx.reply(question, Extra.markup(
