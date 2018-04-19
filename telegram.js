@@ -10,8 +10,11 @@ let bot
 let telegram
 
 exports.init = function() {
-    console.log(process.env.NODE_ENV)
-    console.log(config.get('BOT_TOKEN'))
+
+    console.log('Init')
+    //console.log(process.env.NODE_ENV)
+    console.log('-------')
+    //console.log(config.get('BOT_TOKEN'))
     
     let token;
     if(process.env.BOT_TOKEN) { 
