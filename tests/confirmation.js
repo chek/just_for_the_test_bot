@@ -1,27 +1,27 @@
 /* eslint-env node, mocha */
 
 const confirmation = require('../components/confirmation')
-var telegram = require('../telegram.js')
 
 var assert = require('assert')
-describe('confirnation', function() {
+describe('confirmation', function() {
     before(() => {
     })
     after(() => {
     })
     describe('show()', function() {
-        it('should return -1 when the value is not present', function() {
+        it('should close on timeout', function(done) {
             confirmation.show(
                 undefined, 
                 'afsdfsdfds?',
                 (val) => {
-                    console.log('111')
+                    assert.equal(val, true)
+                    done()
                 },
                 (err) => {
-                    console.log('222')
+                    assert.equal(err, false)
+                    done()
                 }
             )
-            assert.equal([1,2,3].indexOf(4), -1)
         })
     })
 })

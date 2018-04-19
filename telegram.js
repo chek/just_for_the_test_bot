@@ -22,6 +22,8 @@ exports.init = function () {
     }
     bot = new Telegraf(token)
     telegram = new Telegram(token)
+    //console.log(process.env)
+    //console.log(process.env.NODE_ENV)
     bot.telegram.getMe().then((bot_informations) => {
         bot.options.username = bot_informations.username
         console.log('Server has initialized bot nickname. Nick: '+bot_informations.username)

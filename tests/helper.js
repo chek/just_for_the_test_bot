@@ -1,5 +1,7 @@
 /* eslint-env node, mocha */
 let telegram = require('../telegram.js')
+//var assert = require('assert')
+
 // globals
 //global.assert = require('assert')
 
