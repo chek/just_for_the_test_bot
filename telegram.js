@@ -1,9 +1,9 @@
-const pem = require('pem')
+//const pem = require('pem')
 const Telegraf = require('telegraf')
 const Telegram = require('telegraf/telegram')
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
-process.env.NODE_CONFIG_DIR = './config'
+//process.env.NODE_CONFIG_DIR = './config'
 const config = require('config');
 let bot
 let telegram
